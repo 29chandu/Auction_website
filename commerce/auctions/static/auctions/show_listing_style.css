@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.listing_image {
+    /* background-color: violet; */
+    /* width: 300px; */
+}
+
+.listing_content {
+    /* background-color: khaki; */
+    justify-self: start;
+    /* width: 300px; */
+}
+
+.listing_meta {
+    display: flex;
+    flex-direction: column;
+    /* background-color: violet; */
+}
+
+.comment_bid_section {
+    margin: 30px;
+}
+
+.listing_actions {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.comment_form, .bid_form {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#id_current_bid {
+    flex: 1 250px;
+}
+
+#id_comment {
+    flex: 1 100px;
+}
+
+.not_active {
+    margin-top: 10px;
+}
+
+.show_comments {
+    margin-top: 10px;
+    margin-left: 25px;
+}

@@ -1,0 +1,79 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+<link href="{% static 'auctions/show_listing_style.css' %}" rel="stylesheet">
+<!-- <h2>This is a listing</h2> -->
+
+<div class="listing_body">
+    <div class="container">
+        <div class="listing_image">
+            {% if listing.image %}
+            <img height="150" src="{{ listing.image.url }}" alt="{{ listing.title }} image">
+            {% else %}
+            <img height="100" src="#" alt="No Image">
+            {% endif %}
+        </div>
+
+        <div class="listing_content">
+            <h3>Listing: {{ listing.title }}</h3>
+            <h5>Price: {{ listing.start_bid }}</h5>
+            <p>{{ listing.description }}</p>
+        </div>
+    </div>
+</div>
+
+{% if messages %}
+<ul class="messages alert alert-danger" role="alert">
+    {% for message in messages %}
+    <p {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="listing_meta">
+    {% if request.user.is_authenticated %}
+    <div class="comment_bid_section">
+        {% if listing.is_active %}
+        <div class="bid_form">
+            <form action="{% url 'add_bid_to_listing' listing.id %}" method="POST">
+                {% csrf_token %}
+                {{ bid_form.current_bid }}
+                <input type="submit" value="Place Bid">
+            </form>
+        </div>
+
+        <div class="comment_form">
+            <form action="{% url 'add_comment_to_listing' listing.id %}" method="POST">
+                {% csrf_token %}
+                {{ comment_form.comment }}
+                <input type="submit" value="Comment">
+            </form>
+        </div>
+        <div class="listing_actions">
+            <a href="{% url 'add_to_watchlist' listing.id %}">Add To Watchlist</a>
+            {% if is_creator_of_listing %}
+            <a href="{% url 'close_auction' listing.id %}">Close Auction</a>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="not_active">
+            <h5>This auction is closed by the creator.</h5>
+            {% if is_auction_winner %}
+            <h4>You have won this auction...</h4>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="show_comments">
+        <h5>Comments</h5>
+        {% for comment in comments %}
+        <p>{{ comment.content }}, <small>commented by {{ comment.user }}</small></p>
+        {% empty %}
+        <p>No comments present for this listing...</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

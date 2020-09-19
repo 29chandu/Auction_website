@@ -1,0 +1,15 @@
+body {
+    padding: 10px;
+}
+
+
+.listings {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.listings .listing {
+    min-width: 300px;
+    max-width: 350px;
+    margin: 10px;
+}

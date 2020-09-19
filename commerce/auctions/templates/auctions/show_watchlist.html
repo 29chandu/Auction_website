@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h3>This is watchlist</h3>
+
+{% if messages %}
+<ul class="messages alert alert-info" role="alert">
+    {% for message in messages %}
+    <p {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+{% for item in watchlist %}
+<p><a href="{% url 'show_listing' item.listing.id %}">{{ item.listing.title }}</a> <small><a
+            href="{% url 'remove_from_watchlist' item.id %}">Remove</a></small></p>
+{% empty %}
+<h3>No items in watchlist</h3>
+{% endfor %}
+
+{% endblock %}

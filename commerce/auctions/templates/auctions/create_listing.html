@@ -1,0 +1,64 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'auctions/create_listing_style.css' %}">
+
+<div class="container">
+    <h2>Create Listing</h2>
+
+    <form action="{% url 'create_listing' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper row">
+            {{ form.title.errors }}
+            <div class="col-25">
+                <label for="{{ form.title.id_for_label }}">Listing title:</label>
+            </div>
+            <div class="col-75">
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="fieldWrapper row">
+            {{ form.description.errors }}
+            <div class="col-25">
+                <label for="{{ form.description.id_for_label }}">Description:</label>
+            </div>
+            <div class="col-75">
+                {{ form.description }}
+            </div>
+        </div>
+        <div class="fieldWrapper row">
+            {{ form.image.errors }}
+            <div class="col-25">
+                <label for="{{ form.image.id_for_label }}">Image:</label>
+            </div>
+            <div class="col-75">
+                {{ form.image }}
+            </div>
+        </div>
+        <div class="fieldWrapper row">
+            {{ form.start_bid.errors }}
+            <div class="col-25">
+                <label for="{{ form.start_bid.id_for_label }}">Starting Price:</label>
+            </div>
+            <div class="col-75">
+                {{ form.start_bid }}
+            </div>
+        </div>
+        <div class="fieldWrapper row">
+            {{ form.category.errors }}
+            <div class="col-25">
+                <label for="{{ form.category.id_for_label }}">Category:</label>
+            </div>
+            <div class="col-75">
+                {{ form.category }}
+            </div>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Create Listing">
+    </form>
+</div>
+
+{% endblock %}

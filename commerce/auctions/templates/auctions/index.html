@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    {% if messages %}
+    <ul class="messages alert alert-info" role="alert">
+        {% for message in messages %}
+        <p  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="listings">
+    {% for listing in listings %}
+
+        <div class="card listing" style="width: 18rem;">
+            {% if listing.image %}
+                <img class="card-img-top" height="150" src="{{ listing.image.url }}" alt="{{ listing.title }} image">
+            {% else %}
+                <img class="card-img-top" height="100" src="#" alt="No Image">
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ listing.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Price: {{ listing.start_bid }}</h6>
+                <p class="card-text"><p>{{ listing.description }}</p></p>
+                <a href="{% url 'show_listing' listing.id %}" class="btn btn-primary">See Item</a>
+                <a href="{% url 'add_to_watchlist' listing.id %}" class="btn btn-primary">Add To Watchlist</a>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+{% endblock %}
